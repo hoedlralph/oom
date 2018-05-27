@@ -127,7 +127,7 @@ namespace task2
         public Server(decimal m_price, decimal cores ,decimal main_memory, string os, string database,decimal memory)
         {
 
-            if (string.IsNullOrWhiteSpace(os)) throw new ArgumentException("keine Grafikkarte vorhanden", nameof(os));
+            if (string.IsNullOrWhiteSpace(os)) throw new ArgumentException("kein Betriebssystem vorhanden", nameof(os));
             if (cores % 2 != 0) throw new Exception("ungerade Anzahl an Cores");
             
             M_price = m_price;
@@ -164,6 +164,12 @@ namespace task2
         {
 
             get { return main_memory; }
+
+        }
+        public decimal Cores
+        {
+
+            get { return cores; }
 
         }
 
@@ -203,6 +209,8 @@ namespace task2
 
             try {
                     Notebook asus = new Notebook(100, 1024, "Nvidia", 100000);
+                    Notebook sony = new Notebook(200, 2048, "ATI", 50000);
+                    Notebook fujitsu = new Notebook(300, 4096, "MSI", 70000);
                     asus.main_mem(2048);
                      Console.WriteLine(asus.Memory);
                      asus.M_price = 200;
@@ -211,14 +219,21 @@ namespace task2
                 Server mic = new Server(100000, 8, 128000, "Microsoft", "Oracle", 256000);
                 Server lin = new Server(50000, 4, 64000, "Linux", "DB2", 512000);
                 var list1 = new List<IAsset> { asus, mic, lin };
+                var list2 = new List<Notebook> { asus, sony, fujitsu };
 
+                Serialization.Run(list2);
+
+                /*
                 decimal i = 0;
+                
                 foreach (IAsset s in list1)
                 {
                     Console.WriteLine(s.Description);
                     Console.WriteLine(s.Asset_number(12000+i));
                     i++;
                 }
+
+                  */
             }
             catch (Exception e)
             {
