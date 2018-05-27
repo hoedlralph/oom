@@ -31,7 +31,7 @@ namespace task2
             File.WriteAllText(filename, text);
 
             // 5. deserialize items from "items.json"
-            // ... and print Description and Price of deserialized items
+            // ... and print Description and attributes of deserialized items
             var textFromFile = File.ReadAllText(filename);
             var itemsFromFile = JsonConvert.DeserializeObject<Notebook[]>(textFromFile, settings);
             foreach (var x in itemsFromFile) Console.WriteLine($"{x.Main_memory} {x.Graphic_card} {x.M_price}");
