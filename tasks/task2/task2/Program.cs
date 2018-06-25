@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace task2
 {
@@ -206,6 +208,7 @@ namespace task2
     {
         static void Main(string[] args)
         {
+            var i = 0;
 
             try {
                     Notebook asus = new Notebook(100, 1024, "Nvidia", 100000);
@@ -222,6 +225,45 @@ namespace task2
                 var list2 = new List<Notebook> { asus, sony, fujitsu };
 
                 Serialization.Run(list2);
+
+
+              
+
+
+
+                // ein Task mit continuationstask, welche auf Preise vergleichen mittels 2 Queries
+                var task = Task.Factory.StartNew(() =>
+                {
+                    IEnumerable<int> compquery =
+                        from computer in list2
+                        where computer.M_price < 201
+                        select ++i;
+
+
+                    foreach(int s in compquery)
+                    {
+                        Console.WriteLine(i + "kleiner");
+                    }
+
+
+                });
+
+                var task2 = task.ContinueWith((taske) =>
+                {
+                    IEnumerable<int> compquery2 =
+                        from computer in list2
+                        where computer.M_price > 201
+                        select ++i;
+
+
+                    foreach (int g in compquery2)
+                    {
+                        Console.WriteLine(i + "groesser");
+                    }
+
+
+                });
+                
 
                 /*
                 decimal i = 0;
@@ -241,9 +283,9 @@ namespace task2
                 Console.WriteLine(e.Message);
             }
 
-            
 
 
+            Console.ReadLine();
         }
     }
 }
